@@ -23,7 +23,8 @@ After you've got an account setup at all of the above providers, or have your ow
 
 ## 🐳 Docker
 
-Thanks to [how to install briefkasten using docker | blog](https://web.archive.org/web/20231004091506/https://mintel.me/how-to-install-briefkasten-using-docker/).
+Thanks to [how to install briefkasten using docker | blog](https://web.archive.org/web/20231004091506/https://mintel.me/how-to-install-briefkasten-using-docker/) .
+
 You can also self-host Briefkasten with Docker. To do so, you must:
 
 1. Install `docker` and `docker-compose`.
