@@ -1,57 +1,11 @@
-# 📮 Briefkasten
+# 📮 Briefkasten with scrape
 
-![GitHub deployments](https://img.shields.io/github/deployments/ndom91/briefkasten/production?label=ci%2Fcd&style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/ndom91/briefkasten?style=flat-square)
-![Checkly](https://api.checklyhq.com/v1/badges/checks/9c682653-d7de-4e32-8183-73d76631b0e2?style=flat-square&responseTime=false)
-![GitHub](https://img.shields.io/github/license/ndom91/briefkasten?style=flat-square)
-[![Demo](https://img.shields.io/badge/demo-click%20here-brightgreen?style=flat-square)](https://briefkastenhq.com)
-
-> **Briefkasten** (EN: Mailbox) - am Haus- oder Wohnungseingang angebrachter Behälter für die dem Empfänger zugestellten [Post]sendungen
-
-Self-hosted bookmarking application. Works with any Prisma compatible database (MySQL, Postgres, SQLite, etc.)
-
-> [!WARNING]
-> **Briefkasten v2 is currently available in beta at https://dev.briefkastenhq.com**
-> 
-> After the beta period, **the database will be dropped**, so that we can migrate all existing data from the current (v1) `briefkastenhq.com` over to the new version. I'm working on [the new docs](https://docs.briefkastenhq.com) already, but the v1 docs are of course [still available](https://v1.docs.briefkastenhq.com). If you find any bugs, or otherwise want to help, you can contribute at [`ndom91/sveltekasten`](https://github.com/ndom91/sveltekasten) or [`ndom91/briefkasten-docs`](https://github.com/ndom91/briefkasten-docs).
-
-### Free Instance: [briefkastenhq.com](https://briefkastenhq.com) [[Docs](https://docs.briefkastenhq.com)]
-
-## 📸 Screenshots
-
-<table>
-<tr>
-  <td>
-    <a href="https://raw.githubusercontent.com/ndom91/briefkasten/main/public/screenshot_app01.png" target="_blank"><img src="public/screenshot_app01.png"></a>
-  </td>
-  <td>
-    <a href="https://raw.githubusercontent.com/ndom91/briefkasten/main/public/screenshot_app05.png" target="_blank"><img src="public/screenshot_app05.png"></a>
-  </td>
-</tr>
-<tr>
-  <td>
-    <a href="https://raw.githubusercontent.com/ndom91/briefkasten/main/public/screenshot_app06.png" target="_blank"><img src="public/screenshot_app06.png"></a>
-  </td>
-  <td>
-    <a href="https://raw.githubusercontent.com/ndom91/briefkasten/main/public/screenshot_app04.png" target="_blank"><img src="public/screenshot_app04.png"></a>
-  </td>
-</tr>
-</table>
+## 📕 Intro
+More Intro: [briefkasten](https://github.com/ndom91/briefkasten) and [briefkasten-scrape](https://github.com/ndom91/briefkasten-scrape)
 
 ## 🎩 Features
 
-- Save by [Browser Extension](https://github.com/ndom91/briefkasten-extension)
-- Automatic title and description extraction
-- Drag-and-drop URLs on page to save
-- Keyboard shortcuts
-- Organise by categories and tags
-- Import and export bookmarks from standard HTML format
-- Bookmark image fetching [background job](https://github.com/ndom91/briefkasten-scrape)
-- Multiple views
-- Fulltext search
-- REST API
-- OAuth + Email magic link login
-- Easy to self-host briefkasten-with-scrape using Docker 
+- Easy to self-host briefkasten with scrape using Docker 
 
 ## 🧺 Prerequisites
 
@@ -74,7 +28,7 @@ You can also self-host Briefkasten with Docker. To do so, you must:
 1. Install `docker` and `docker-compose`.
 2. Clone this repository and copy the `.env.example` to `.env` file in `briefkasten`.
 ```sh
-$ git clone -b configuration/briefkasten-with-scrape https://github.com/Tuscan-blue/briefkasten.git
+$ git clone https://github.com/Tuscan-blue/briefkasten.git
 $ cd briefkasten
 $ cp .env.example .env
 $ vim .env
