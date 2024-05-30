@@ -51,6 +51,7 @@ Self-hosted bookmarking application. Works with any Prisma compatible database (
 - Fulltext search
 - REST API
 - OAuth + Email magic link login
+- Easy to self-host briefkasten-with-scrape using Docker 
 
 ## 🧺 Prerequisites
 
@@ -59,64 +60,53 @@ To self-host this application, you'll need the following thins:
 1. Server / hosting platform for a Next.js application (i.e. Vercel / Netlify)
 2. For OAuth login, a developer account at any one of the [providers](https://next-auth.js.org/providers) supported by [NextAuth.js](https://github.com/nextauthjs/next-auth)
 3. Database that works with Prisma (i.e. MySQL, Postgres, SQLite, etc.)
-4. Image hosting space (i.e. Supabase / ImageKit / Cloudinary) (**optional**)
+4. Image hosting space (Supabase)
 
 These are all relatively straight forward, other than the image hoster. This was chosen to avoid putting the images in the database. The example application at [briefkastenhq.com](https://briefkastenhq.com) is using [Supabase Storage](https://supabase.com), but any other similar provider like Cloudinary or a simple S3 Bucket would also do the job. I chose Supabase, because they have an easy to use SDK, a decent free tier, and I was already using their Postgres service.
 
 After you've got an account setup at all of the above providers, or have your own infrastructure ready to go, you can continue on to the next steps below.
 
-## 🚀 Getting Started
-
-1. Clone the repository
-
-```sh
-$ git clone git@github.com:ndom91/briefkasten.git && cd briefkasten
-```
-
-2. Install dependencies
-
-```sh
-$ pnpm install
-```
-
-3. Copy the `.env.example` file to `.env`, and open it with your favorite text editor to fill in your environment variables.
-
-```sh
-$ cp .env.example .env
-$ vim .env
-```
-
-In this environment variables file, make sure to at least fill in the `DATABASE_URL`, `NEXTAUTH_URL` and `NEXTAUTH_SECRET`. The rest of the environment variables depend on the services / features you want to use. For example, Google/Github for OAuth login and/or Supabase for object storage.
-
-4. Start the server!
-
-```sh
-// First time only
-$ pnpm db:push
-
-// dev
-$ pnpm dev
-
-// prod
-$ pnpm build
-$ pnpm start
-```
 
 ## 🐳 Docker
 
 You can also self-host Briefkasten with Docker. To do so, you must:
 
 1. Install `docker` and `docker-compose`.
-2. Clone the repository and copy the `.env.example` to `.env` file.
-   1. Here you also need to fill out the `DATABASE_URL` and `NEXTAUTH_*` environment variables at minimum.
-   2. The `DATABASE_URL` for the postgres container should be `DATABASE_URL=postgres://bkAdmin:briefkasten@postgres:5432/briefkasten?sslmode=disable`
-3. Run `docker-compose up -d` in the root of the repository. This will start the application as well as the database for you.
-4. After the initial start, you still have to manually seed the database. This is most easily done through the app container (`bk-app`).
+2. Clone this repository and copy the `.env.example` to `.env` file in `briefkasten`.
+```sh
+$ git clone -b configuration/briefkasten-with-scrape https://github.com/Tuscan-blue/briefkasten.git
+$ cd briefkasten
+$ cp .env.example .env
+$ vim .env
+```  
+
+   - Here you also need to fill out the `DATABASE_URL`, `NEXTAUTH_*` and `SUPABASE_*` environment variables at minimum.
+   - The `DATABASE_URL` for the postgres container should be `DATABASE_URL=postgres://bkAdmin:briefkasten@postgres:5432/briefkasten?sslmode=disable`
+3. Clone the `briefkasten-scrape` repository in a new directory
+```sh
+$ cd ..
+$ git clone https://github.com/Tuscan-blue/briefkasten-scrape.git
+$ cd briefkasten-scrape
+```
+4. Copy `.env.example` to `.env` in `brefkasten-scrape` and edit the file `.env` accordingly
+```sh
+$ cp .env.example .env
+$ vim .env
+```
+5. Build Docker container
+```sh
+$ docker build . -t briefkasten-scrape:latest
+```
+6. start the application
+```sh
+$ cd ../briefkasten
+$ docker compose up
+```
+7. After the initial start, you still have to manually seed the database. This is most easily done through the app container (`bk-app`).
    1. Run `docker exec -it bk-app /bin/bash` to enter a terminal session inside the container.
    2. Then run `pnpm db:push` inside the container. This will push the database schema from prisma to the configured database.
 5. Now your application and database should be up and running at the default `http://localhost:3000`
 
-More details can be found in the [Docker section](https://docs.briefkastenhq.com/docs/self-hosting.html#docker) of the docs.
 
 ## 🕸 Related
 
@@ -130,9 +120,6 @@ With this open-source application [HTTP Shortcuts](https://http-shortcuts.rmy.ch
 
 There is a companion browser extension in the works which you can use to add websites to your vault while browsing the web. It can be found at [`ndom91/briefkasten-extension`](https://github.com/ndom91/briefkasten-extension) and in the [Chrome Extension Store](https://chrome.google.com/webstore/detail/briefkasten-bookmarks/aighkhofochfjejmhjfkgjfpkpgmjlnd). More details in that repository.
 
-### 🧑‍🏭 Screenshot Job
-
-There is also a background job to fill in bookmarks which do not have a valid image. It can be found in the [`ndom91/briefkasten-scrape`](https://github.com/ndom91/briefkasten-scrape) repository. This job runs every 2 hours in a Github Action and processes 10 bookmarks at a time.
 
 ## 👷 Contributing
 
